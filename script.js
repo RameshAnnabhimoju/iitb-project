@@ -88,6 +88,15 @@ const deleteButton = document.getElementById("delete");
 const refreshButton = document.getElementById("refresh");
 const saveButton = document.getElementById("save");
 const tableBody = document.getElementById("table-body");
+const checkboxes = document.getElementsByName("rowSelect");
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", () => {
+    let selectedRows = Array.from(checkboxes)
+      .filter((rows) => rows.checked)
+      .map((checkedRows) => checkedRows.value);
+    console.log(selectedRows);
+  });
+});
 
 addButton.addEventListener("click", add);
 saveButton.addEventListener("click", save);

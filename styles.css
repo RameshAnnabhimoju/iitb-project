@@ -11,10 +11,14 @@ Checking points for Media Queries
 }
 
 .container {
+  min-height: 120vh;
   margin: 5% 8%;
 }
 
 #header {
+  position: sticky;
+  top: 0;
+  background-color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,13 +33,14 @@ Checking points for Media Queries
 code for table
 ------------------*/
 .table-tag {
-  height: 10px;
   width: 100%;
   border: 1px solid grey;
   border-radius: 5px;
 }
 
-.table-head {
+#table-head {
+  position: sticky;
+  top: 6%;
   height: 10px;
 }
 
@@ -84,4 +89,5 @@ code for tablebody
   justify-content: center;
   align-items: center; */
   text-align: center;
-}/*# sourceMappingURL=styles.css.map */
+}
+
