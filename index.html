@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div id="header">
+            <h1 class="heading">Chemical Supplies</h1>
+            <div class="actions">
+                <img class="img-tag" id="add" src="./assets/icons8-add-24.png" alt="add-action" />
+                <img class="img-tag" id="edit" src="./assets/icons8-edit-24.png" alt="edit-action" />
+                <img class="img-tag" id="move-up" src="./assets/icons8-sort-up-24.png" alt="move-up-action" />
+                <img class="img-tag" id="move-down" src="assets/icons8-sort-down-24.png" alt="move-down-action" />
+                <img class="img-tag" id="delete" src="./assets/icons8-delete-24.png" alt="delete-action" />
+                <img class="img-tag" id="refresh" src="./assets/icons8-update-left-rotation-24.png" alt="refresh-action" />
+                <img class="img-tag" id="save" src="./assets/icons8-save-24.png" alt="save-action" />
+            </div>
+        </div>
+        <table class="table-tag">
+            <thead id="table-head">
+                <tr class="table-row">
+                    <th id="select-header">
+                        <div class="trail" id="select-all">
+                            <input id="chkbox" type="checkbox" />
+                        </div>
+                    </th>
+
+                    <th id="id-header" class="table-header">
+                        <div class="trail">
+                            <h3>ID</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                    </th>
+
+                    <th id="chemicalName-header" class="table-header">
+                        <div class="trail">
+                            <h3>Chemical Name</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3>Chemical Name
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                    </th>
+
+                    <th id="vendor-header" class="table-header">
+                        <div class="trail">
+                            <h3>Vendor</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3> Vendor
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                    </th>
+
+                    <th id="density-header" class="table-header">
+                        <div class="trail">
+                            <h3>Density</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3>Density
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                        <!-- <div class="subtext">g/m<sup>2</sup></div> -->
+                    </th>
+
+                    <th id="viscosity-header" class="table-header">
+                        <div class="trail">
+                            <h3>Viscosity</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3>Viscosity
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                        <!-- <div class="subtext">m<sup>2</sup>/s</div> -->
+                    </th>
+
+                    <th id="packaging-header" class="table-header">
+                        <div class="trail">
+                            <h3>Packaging</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3>Packaging
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                    </th>
+
+                    <th id="packSize-header" class="table-header">
+                        <div class="trail">
+                            <h3>Pack Size</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3>Pack Size
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                    </th>
+
+                    <th id="unit-header" class="table-header">
+                        <div class="trail">
+                            <h3>Unit</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3>Unit
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                    </th>
+
+                    <th id="quantity-header" class="table-header">
+                        <div class="trail">
+                            <h3>Quantity</h3>
+                            <img class="table-img" alt="sort-action" src="./assets/icons8-sort-24.png" />
+                        </div>
+                        <!-- <h3>Quantity
+                            <img class="table-img" src="./assets/icons8-sort-24.png" alt="sort-action" />
+                        </h3> -->
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+    </div>
+    <!-- <script src="./jsonData.js" /> -->
+    <script src="./script.js" />
+</body>
+
+</html>
