@@ -65,7 +65,7 @@ code for table
 /*-----------------
 code for checkbox
 ------------------*/
-#chkbox {
+.checkbox {
   width: 23px;
   height: 23px;
 }

@@ -110,7 +110,7 @@ function render() {
     return (tableBody.innerHTML += `<tr class="data">
         <td>
             <div class="content" >
-                <input id="chkbox"  type="checkbox" />
+                <input class="checkbox"  type="checkbox" name="rowSelect" value="${row.id}"/>
             </div>
         </td>
         <td>
@@ -163,16 +163,17 @@ function render() {
 }
 render();
 function add() {
+  const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
   tableBody.innerHTML += `
   <tr>
   <td>
             <div class="content">
-                <input id="chkbox"  type="checkbox" />
+                <input class="checkbox" checked disabled type="checkbox"/>
             </div>
         </td>
         <td>
         <div class="content">
-            ${chemicalSuppliesArray.length + 1}
+            ${chemicalSupplies.length + 1}
         </div>
     </td>
     <td>
@@ -222,13 +223,16 @@ function moveUp() {}
 
 function moveDown() {}
 
-function deleter() {}
+function deleter() {
+  const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
+}
 
 function refresh() {
   render();
 }
 
 function save() {
+  const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
   const newChemicalName = document.getElementById("new-chemicalName");
   const newVendor = document.getElementById("new-vendor");
   const newDensity = document.getElementById("new-density");
@@ -241,9 +245,9 @@ function save() {
   localStorage.setItem(
     "iitbProject",
     JSON.stringify([
-      ...chemicalSuppliesArray,
+      ...chemicalSupplies,
       {
-        id: chemicalSuppliesArray.length + 1,
+        id: chemicalSupplies.length + 1,
         chemicalName: newChemicalName.value,
         vendor: newVendor.value,
         density: newDensity.value,
@@ -263,12 +267,7 @@ function sortAscending() {}
 
 function sortDescending() {}
 
-function generateId() {}
-
 /*-----------------------------
 code for select all button
 ------------------------------*/
-
-selectall.addEventListener("click", function () {
-  console.log("Clicked!");
-});
+function rowSelect() {}
