@@ -78,9 +78,8 @@ const chemicalSuppliesArray = [
   },
 ];
 
-localStorage.setItem("iitbProject", JSON.stringify(chemicalSuppliesArray));
+// localStorage.setItem("iitbProject", JSON.stringify(chemicalSuppliesArray));
 
-const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
 const addButton = document.getElementById("add");
 const editButton = document.getElementById("edit");
 const moveButton = document.getElementById("move-up");
@@ -89,15 +88,28 @@ const deleteButton = document.getElementById("delete");
 const refreshButton = document.getElementById("refresh");
 const saveButton = document.getElementById("save");
 const tableBody = document.getElementById("table-body");
+
 addButton.addEventListener("click", add);
+saveButton.addEventListener("click", save);
+refreshButton.addEventListener("click", refresh);
 
 const selectall = document.getElementById("chkbox");
 
+function firstRender() {
+  const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
+  if (chemicalSupplies === null) {
+    localStorage.setItem("iitbProject", JSON.stringify(chemicalSuppliesArray));
+    render();
+  }
+}
+firstRender();
 function render() {
+  tableBody.innerHTML = "";
+  const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
   chemicalSupplies.map((row) => {
     return (tableBody.innerHTML += `<tr class="data">
         <td>
-            <div class="content" id="select-all">
+            <div class="content" >
                 <input id="chkbox"  type="checkbox" />
             </div>
         </td>
@@ -150,18 +162,17 @@ function render() {
   });
 }
 render();
-
 function add() {
   tableBody.innerHTML += `
   <tr>
   <td>
-            <div class="content" id="select-all">
+            <div class="content">
                 <input id="chkbox"  type="checkbox" />
             </div>
         </td>
         <td>
         <div class="content">
-            ${chemicalSupplies.length + 1}
+            ${chemicalSuppliesArray.length + 1}
         </div>
     </td>
     <td>
@@ -191,11 +202,11 @@ function add() {
     <td>
         <select  id = "new-unit">
         <option>Select</option>
-        <option>kg</option>
-        <option>gm</option>
-        <option>L</option>
-        <option>ml</option>
-        <option>t</option>
+        <option value="kg">kg</option>
+        <option value="gm">gm</option>
+        <option value="L">L</option>
+        <option value="ml">ml</option>
+        <option value="t">t</option>
         </select>
     </td>
     <td>
@@ -213,9 +224,40 @@ function moveDown() {}
 
 function deleter() {}
 
-function refresh() {}
+function refresh() {
+  render();
+}
 
-function save() {}
+function save() {
+  const newChemicalName = document.getElementById("new-chemicalName");
+  const newVendor = document.getElementById("new-vendor");
+  const newDensity = document.getElementById("new-density");
+  const newViscosity = document.getElementById("new-viscosity");
+  const newPackaging = document.getElementById("new-packaging");
+  const newPackSize = document.getElementById("new-packSize");
+  const newUnit = document.getElementById("new-unit");
+  const newQuantity = document.getElementById("new-quantity");
+  // chemicalSuppliesArray.push();
+  localStorage.setItem(
+    "iitbProject",
+    JSON.stringify([
+      ...chemicalSuppliesArray,
+      {
+        id: chemicalSuppliesArray.length + 1,
+        chemicalName: newChemicalName.value,
+        vendor: newVendor.value,
+        density: newDensity.value,
+        viscosity: newViscosity.value,
+        packaging: newPackaging.value,
+        packSize: newPackSize.value,
+        unit: newUnit.value,
+        quantity: newQuantity.value,
+      },
+    ])
+  );
+  tableBody.innerHTML = "";
+  render();
+}
 
 function sortAscending() {}
 
@@ -230,4 +272,3 @@ code for select all button
 selectall.addEventListener("click", function () {
   console.log("Clicked!");
 });
-addButton.addEventListener("click", add);
