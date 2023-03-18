@@ -122,12 +122,12 @@ function render() {
             </div>
         </td>
         <td>
-            <div class="content">
+            <div >
                ${row.chemicalName}
             </div>
         </td>
         <td>
-            <div class="content">
+            <div >
             ${row.vendor}
             </div>
         </td>
@@ -193,11 +193,11 @@ function add() {
     </td>
     <td>
         <select  id = "new-packaging">
-        <option>Select</option>
-        <option>Bag</option>
-        <option>Bottle</option>
-        <option>Barrel</option>
-        <option>N/A</option>
+        <option selected disabled hidden>Select</option>
+        <option value="Bag">Bag</option>
+        <option value="Bottle">Bottle</option>
+        <option value="Barrel">Barrel</option>
+        <option value="N/A">N/A</option>
         </select>
     </td>
     <td>
@@ -205,7 +205,7 @@ function add() {
     </td>
     <td>
         <select  id = "new-unit">
-        <option>Select</option>
+        <option selected disabled hidden>Select</option>
         <option value="kg">kg</option>
         <option value="gm">gm</option>
         <option value="L">L</option>
@@ -220,7 +220,90 @@ function add() {
   `;
 }
 
-function edit() {}
+function edit() {
+  if (selectedRows.length == 1) {
+    const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
+    const selectedRow = selectedRows[0];
+    const rowValues = chemicalSupplies.filter((row) => row.id == selectedRow);
+    const rowToEdit =
+      document.querySelector("#table-body").childNodes[selectedRow - 1];
+    rowToEdit.innerHTML = `
+    <td>
+      <div class="content">
+        <input class="checkbox" checked  type="checkbox" onclick="refresh()"/>
+      </div>
+    </td>
+    <td>
+      <div class="content">
+        ${rowValues[0].id}
+      </div>
+    </td>
+    <td>
+      <input type="text" id = "new-chemicalName" value="${
+        rowValues[0].chemicalName
+      }"/>
+    </td>
+    <td>
+      <input type="text" id = "new-vendor" value="${rowValues[0].vendor}"/>
+    </td>
+    <td>
+      <input type="number" id = "new-density" value="${rowValues[0].density}"/>
+    </td>
+    <td>
+      <input type="number" id = "new-viscosity" value="${
+        rowValues[0].viscosity
+      }"/>
+    </td>
+    <td>
+        <select  id = "new-packaging">
+        <option disabled hidden>Select</option>
+        <option ${
+          rowValues[0].packaging === "Bag" ? "selected" : ""
+        }>Bag</option>
+        <option ${
+          rowValues[0].packaging === "Bottle" ? "selected" : ""
+        }>Bottle</option>
+        <option ${
+          rowValues[0].packaging === "Barrel" ? "selected" : ""
+        }>Barrel</option>
+        <option ${
+          rowValues[0].packaging === "N/A" ? "selected" : ""
+        }>N/A</option>
+        </select>
+        </td>
+        <td>
+        <input type="number" id = "new-packSize" value="${
+          rowValues[0].packSize
+        }"/>
+        </td>
+        <td>
+        <select  id = "new-unit" value="${rowValues[0].unit}">
+        <option  disabled hidden>Select</option>
+        <option value="kg" ${
+          rowValues[0].unit === "kg" ? "selected" : ""
+        }>kg</option>
+        <option value="gm" ${
+          rowValues[0].unit === "gm" ? "selected" : ""
+        }>gm</option>
+        <option value="L" ${
+          rowValues[0].unit === "L" ? "selected" : ""
+        }>L</option>
+        <option value="ml" ${
+          rowValues[0].unit === "ml" ? "selected" : ""
+        }>ml</option>
+        <option value="t" ${
+          rowValues[0].unit === "t" ? "selected" : ""
+        }>t</option>
+        </select>
+        </td>
+    <td>
+      <input type="number" id = "new-quantity" value="${
+        rowValues[0].quantity
+      }"/>
+    </td>
+    `;
+  }
+}
 
 function moveUp() {}
 
@@ -249,13 +332,11 @@ function save() {
   const newPackSize = document.getElementById("new-packSize");
   const newUnit = document.getElementById("new-unit");
   const newQuantity = document.getElementById("new-quantity");
-  // chemicalSuppliesArray.push();
-  localStorage.setItem(
-    "iitbProject",
-    JSON.stringify([
-      ...chemicalSupplies,
-      {
-        id: chemicalSupplies.length + 1,
+
+  const updatedChemicalSupplies = chemicalSupplies.map((row) => {
+    if (selectedRows.includes(row?.id.toString())) {
+      return {
+        ...row,
         chemicalName: newChemicalName.value,
         vendor: newVendor.value,
         density: newDensity.value,
@@ -264,10 +345,32 @@ function save() {
         packSize: newPackSize.value,
         unit: newUnit.value,
         quantity: newQuantity.value,
-      },
-    ])
+      };
+    }
+    return row;
+  });
+  const newChemicalSupplies = [
+    ...chemicalSupplies,
+    {
+      id: chemicalSupplies.length + 1,
+      chemicalName: newChemicalName.value,
+      vendor: newVendor.value,
+      density: newDensity.value,
+      viscosity: newViscosity.value,
+      packaging: newPackaging.value,
+      packSize: newPackSize.value,
+      unit: newUnit.value,
+      quantity: newQuantity.value,
+    },
+  ];
+
+  localStorage.setItem(
+    "iitbProject",
+    JSON.stringify(
+      selectedRows.length == 1 ? updatedChemicalSupplies : newChemicalSupplies
+    )
   );
-  tableBody.innerHTML = "";
+  console.log();
   render();
 }
 
@@ -278,7 +381,6 @@ function sortDescending() {}
 /*-----------------------------
 code for select button
 ------------------------------*/
-
 function rowSelect() {
   selectedRows = Array.from(checkboxes)
     .filter((rows) => rows.checked)
