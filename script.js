@@ -78,31 +78,25 @@ const chemicalSuppliesArray = [
   },
 ];
 
-// localStorage.setItem("iitbProject", JSON.stringify(chemicalSuppliesArray));
+let selectedRows = [];
 
 const addButton = document.getElementById("add");
 const editButton = document.getElementById("edit");
-const moveButton = document.getElementById("move-up");
+const moveUpButton = document.getElementById("move-up");
 const moveDownButton = document.getElementById("move-down");
 const deleteButton = document.getElementById("delete");
 const refreshButton = document.getElementById("refresh");
 const saveButton = document.getElementById("save");
 const tableBody = document.getElementById("table-body");
 const checkboxes = document.getElementsByName("rowSelect");
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", () => {
-    let selectedRows = Array.from(checkboxes)
-      .filter((rows) => rows.checked)
-      .map((checkedRows) => checkedRows.value);
-    console.log(selectedRows);
-  });
-});
 
 addButton.addEventListener("click", add);
-saveButton.addEventListener("click", save);
+editButton.addEventListener("click", edit);
+moveUpButton.addEventListener("click", moveUp);
+moveDownButton.addEventListener("click", moveDown);
+deleteButton.addEventListener("click", deleter);
 refreshButton.addEventListener("click", refresh);
-
-const selectall = document.getElementById("chkbox");
+saveButton.addEventListener("click", save);
 
 function firstRender() {
   const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
@@ -119,7 +113,7 @@ function render() {
     return (tableBody.innerHTML += `<tr class="data">
         <td>
             <div class="content" >
-                <input class="checkbox"  type="checkbox" name="rowSelect" value="${row.id}"/>
+                <input class="checkbox"  type="checkbox" name="rowSelect" value="${row.id}" onchange="rowSelect()"/>
             </div>
         </td>
         <td>
@@ -234,6 +228,11 @@ function moveDown() {}
 
 function deleter() {
   const chemicalSupplies = JSON.parse(localStorage.getItem("iitbProject"));
+  const updatedChemicalSupplies = chemicalSupplies.filter(
+    (row) => !selectedRows.includes(row.id.toString())
+  );
+  localStorage.setItem("iitbProject", JSON.stringify(updatedChemicalSupplies));
+  render();
 }
 
 function refresh() {
@@ -277,6 +276,11 @@ function sortAscending() {}
 function sortDescending() {}
 
 /*-----------------------------
-code for select all button
+code for select button
 ------------------------------*/
-function rowSelect() {}
+
+function rowSelect() {
+  selectedRows = Array.from(checkboxes)
+    .filter((rows) => rows.checked)
+    .map((checkedRows) => checkedRows.value);
+}
